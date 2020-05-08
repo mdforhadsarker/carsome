@@ -2,13 +2,7 @@ import React, { Component } from 'react'
 import Select from 'react-select'
 import '../App.css';
 
-const options =[
-  {label:'9:00 AM', value:'0'},
-  {label:'9:30 AM', value:'1'},
-  {label:'10:00 AM', value:'2'},
-  {label:'10:30 AM', value:'3'}
-  
-]
+
 export default class TimeField extends Component {
     constructor(props){
         super(props);

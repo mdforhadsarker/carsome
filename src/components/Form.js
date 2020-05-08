@@ -37,6 +37,7 @@ export default class Form extends Component {
       console.log(e)
     }
   }
+ 
   onDateSelected =(selectedDate) =>{
     this.setState({
       selectedDate: selectedDate
@@ -50,7 +51,7 @@ export default class Form extends Component {
     })
     console.log("FF "+ selectedTime.label)
   }
-
+ 
   render() {
     // let sqlDate=new Date(this.state.selectedDate).toJSON().slice(0,10)
     if(this.state.selectedDate !== null )
