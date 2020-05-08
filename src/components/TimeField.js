@@ -25,8 +25,11 @@ export default class TimeField extends Component {
         .then(json => {
           console.log(json)
           this.setState({
-            times: json,
+            times: json.map((time,index)=>{
+              return {label:time,value:index}
+            }),
           })
+          console.log(this.state.times)
         })
       }
       
@@ -37,6 +40,7 @@ export default class TimeField extends Component {
      
       handleChange = selectedTime => {
         this.setState({ selectedTime });
+        this.props.onTimeSelected(selectedTime)
         console.log(`Option selected:`, selectedTime)
       };
    
@@ -49,7 +53,7 @@ export default class TimeField extends Component {
               isSearchable={false}
               value={selectedTime}
               onChange={this.handleChange}
-              options={options}
+              options={this.state.times}
               placeholder="Time"
               >
               

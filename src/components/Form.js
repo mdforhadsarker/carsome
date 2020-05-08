@@ -13,16 +13,24 @@ export default class Form extends Component {
 
   async onSubmit (e){
     try {
+      let stream=JSON.stringify({
+            date: this.state.selectedDate,
+            time: this.state.selectedTime
+          })
+      // let headers=new Headers()
+      // headers.append("Content-Type", "application/json")
+      // headers.append("Content-Length",Buffer.byteLength(stream, 'utf-8'))    
+
+      // console.log(stream.length.toString()+" "+Buffer.byteLength(stream, 'utf-8'))
+      // console.log("XXXX "+this.state.selectedDate+" , "+this.state.selectedTime)
+
 
       let result = await fetch('http://localhost:3000/inspection',{
           method: 'POST',
-          header: {
-            'Content-type': 'application/json'
+          headers: {
+              'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            date: 'selectedDate',
-            time: 'selectedTime'
-          })
+          body: stream
       });
       console.log(result)
     } catch(e){
@@ -38,9 +46,9 @@ export default class Form extends Component {
 
   onTimeSelected =(selectedTime) =>{
     this.setState({
-      selectedTime: selectedTime
+      selectedTime: selectedTime.label
     })
-    console.log("FF "+ selectedTime)
+    console.log("FF "+ selectedTime.label)
   }
 
   render() {
