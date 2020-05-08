@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import '../App.css';
 
-const options = [
-    {label: '4:30 PM', value:'0'},
-    {label: '5:00 PM', value:'1'},
-    {label: '5:30 PM', value:''}
+const options =[
+  {label:'9:00 AM', value:'0'},
+  {label:'9:30 AM', value:'1'},
+  {label:'10:00 AM', value:'2'},
+  {label:'10:30 AM', value:'3'}
   
-  ];
-
+]
 export default class TimeField extends Component {
     constructor(props){
         super(props);
@@ -17,36 +18,44 @@ export default class TimeField extends Component {
         }
       }
       componentDidMount(){
-        fetch('http://localhost:3000/available-slots/2020-05-11')
+        const {selectedDate}=this.props
+        console.log("Time ++ "+selectedDate)
+        fetch('http://localhost:3000/available-slots/'+selectedDate)
         .then(res => res.json())
         .then(json => {
+          console.log(json)
           this.setState({
             times: json,
           })
         })
       }
-    state = {
-        selectedOption: null,
+      
+      state = {
+        selectedTime: new Date()
+    
       };
-      handleChange = selectedOption => {
-        this.setState({ selectedOption });
-        console.log(`Option selected:`, selectedOption);
+     
+      handleChange = selectedTime => {
+        this.setState({ selectedTime });
+        console.log(`Option selected:`, selectedTime)
       };
    
     render() {
-        console.log(this.times)
-        const { selectedOption } = this.state;
+      const { selectedTime } = this.state;
           return (
-            <div style={{marginTop: 20}}>
+            <div>
             <Select 
-                isSearchable={false} 
-                placeholder={'Time'}
-                options ={options}
-                value={selectedOption}
-                onChange={this.handleChange}
-            />
+            
+              isSearchable={false}
+              value={selectedTime}
+              onChange={this.handleChange}
+              options={options}
+              placeholder="Time"
+              >
+              
+            </Select>
             </div>
+
           )
-       
     }
 }
